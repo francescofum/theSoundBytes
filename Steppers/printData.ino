@@ -1,5 +1,6 @@
 
 void printData(volatile uint32_t timeArray[], volatile uint32_t noteArray[], volatile uint32_t statusArray[]) {
+  Serial.println("Printing data:");
   for (uint16_t i = 0; i < Size; i++) {
     Serial.print(timeArray[i]);
     Serial.print("           ");

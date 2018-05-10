@@ -24,10 +24,10 @@ void playTrack(String track) {
 
    //uint32_t dt = millis() - timerz;
     while(ACTION != 4){
-      delay(50);
+      delay(5);
     }    
    Serial.println("Starting..");
-    //printData(timeArray, noteArray, statusArray);
+   // printData(timeArray, noteArray, statusArray);
     timer.begin(ISR, 100);
     timer.update(timeArray[0]);
 
