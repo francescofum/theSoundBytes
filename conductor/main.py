@@ -21,7 +21,7 @@ import time
 #TODO: add song options as a list?!
 
 class Main(QtGui.QDialog):
-print(1)
+
     def SongSelection(self):
         print("select song")
         os.chdir(pathToMain)

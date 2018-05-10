@@ -1,5 +1,5 @@
 #include <SD.h>
-#include <SPI.h> //not nneeded
+#include <SPI.h> 
 
 #define bitSet(value, bit) ((value) |= (1ULL << (bit)))
 #define bitClear(value, bit) ((value) &= ~(1ULL << (bit)))

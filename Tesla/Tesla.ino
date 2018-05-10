@@ -42,6 +42,7 @@ uint32_t timerz;
 uint64_t _time = 0; //DELETE IN FINAL VERSION
 void setup() {
   //****SETUP FOR MQTT*********//
+ 
   pinMode(3, INPUT);
   delay(500);
   Serial.begin(115200);  //begin Serial to transmit to monitor.
