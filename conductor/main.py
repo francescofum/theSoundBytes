@@ -4,7 +4,7 @@
 #pyqt imports
 import sys
 from PyQt4 import QtGui
-from orchestraGUIv4 import Ui_Dialog
+from gui import Ui_Dialog
 from PyQt4.Qt import QFileDialog
 from fileinput import filename
 #my imports
