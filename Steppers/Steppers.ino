@@ -22,7 +22,7 @@
 //***** OBJECT DECLARATION *****//
 File SDhandler;
 IntervalTimer timer;
-MiniGen gen(10);
+MiniGen gen(9);
 //*****************************//
 //****GLOBAL VARIABLES ********//
 //for sd card
@@ -62,6 +62,7 @@ void setup() {
 //  while(Serial3.available()){
 //    Serial3.read();
 //  }
+playnote(0);
 }
 
 void loop() {

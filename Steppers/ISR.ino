@@ -1,5 +1,5 @@
 void ISR() {
- // Serial.println(count);
+ Serial.println(count);
   //maybe declare frequencies as global? does it add computational time if they have to be decleard each time in the isr?
   float frequencies[] = {8.17, 8.66, 9.17, 9.72, 10.30, 10.91, 11.56, 12.24, 12.97, 13.75, 14.56, 15.43, //octave 1
                          16.35, 17.32, 18.35, 19.44, 20.60, 21.82, 23.12, 24.49, 25.95, 27.50, 29.13, 30.86, //octave 2

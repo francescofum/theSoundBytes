@@ -119,7 +119,7 @@ class Main(QtGui.QDialog):
         pass
     
 
-
+#all = -1 keyboard:2 stepper:0 tesla:3 xylo:1
     def checkAll_Checked(self):
         settings[5] = -1
         pass
