@@ -17,7 +17,7 @@ def MQTT_publish(action,track=None,topic=-1):
         print("Transmitting ",action + track," to",topics[topic])
         client.publish(topics[topic],"PLAY"+track)               #transmit play signal 
     elif action == "STOP":
-        print("Transmitting ",action,str(track),str(topics[topic]))
+        print("Transmitting ",action,str(topics[topic]))
         client.publish(topics[topic],"STOP")                     #transmit stop signal
     elif action == "listTracks":
         client.publish(topics[topic],"listTracks")               #transmit listTracks signal

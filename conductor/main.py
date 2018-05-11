@@ -18,10 +18,10 @@ import conductor
 import time
 
     
-#TODO: add song options as a list?!
 
+            
 class Main(QtGui.QDialog):
-
+    
     def SongSelection(self):
         print("select song")
         os.chdir(pathToMain)
@@ -38,7 +38,7 @@ class Main(QtGui.QDialog):
         try:
             savePath = str(QFileDialog.getSaveFileName(self,"Save as"))
             tempPath =savePath
-        
+            
             if len(savePath)>8: #teensy requires names of less than 8 characters
                 savePath = os.path.join(os.path.dirname(savePath),os.path.basename(savePath)[:8])    
             __SONGS_temp_={os.path.basename(tempPath):os.path.basename(savePath)}
@@ -46,6 +46,7 @@ class Main(QtGui.QDialog):
             if not os.path.exists(settings[0]):
                 os.makedirs(settings[0])      
             shelfFile = shelve.open('GUIconfig')
+            
             if(not '__SONGS__' in shelfFile.keys()):
                shelfFile['__SONGS__'] = {}
                
@@ -81,36 +82,54 @@ class Main(QtGui.QDialog):
             print(settings[2])
             print(settings[3])
             print("Make sure all the necessary fields are filled")
+            self.ui.textEdit_2.setText("ERROR: Make sure all the necessary fields are filled.")
         else:
-            print("Converting midi file...")
+            display=('''Saving as: {}
+MIDI track: {}
+Instrument: {} 
+Format: {}
+        ''').format(os.path.basename(settings[0]),os.path.basename(settings[1]),instruments[settings[2]-1],settings[3])
+            self.ui.textEdit_2.setText(display)
+            self.ui.textEdit_2.append("Converting MIDI file to {}. . . .".format(settings[3]))
             if(settings[3] == 'binary'):
                 print("to binary")
                 saveToSD_BINARY.downloadToSD(settings[0],settings[1],settings[2],settings[0])
+                self.ui.textEdit_2.append("File successfully converted.")
             if(settings[3] == 'text'):
                 print("to text")
                 saveToSD_TEXT.downloadToSD(settings[0],settings[1],settings[2],settings[0])
-            pass
+                self.ui.textEdit_2.append("File successfully converted.")
+            
     
     def btnPlay_Clicked(self):
+        os.chdir(pathToMain)
+        
         if settings[6]  == None:
-            settings[6] = self.ui.SelectSong.currentText()[0:8]
-            
+            settings[6] = self.ui.SelectSong.currentText()[:8] 
         if settings[5] == None:
+            self.ui.textEdit.append("ERROR: Please select an instrument.")
             print("Select instrument")
         else:
+            shelfFile = shelve.open('GUIconfig')  
+            __SONGS_temp_ = shelfFile['__SONGS__']
             conductor.MQTT_publish("PLAY",track=settings[6],topic=settings[5])
             time.sleep(3)
             print("Transmitting START signal")
             conductor.MQTT_publish("START",topic=settings[5])
+            songName = [k for k,v in __SONGS_temp_.items() if v==settings[6]]         
+            self.ui.textEdit.setText("PLAYING {}  on {}".format(__SONGS_temp_[songName[0]],instruments[settings[5]]))
             
         
    
    
     def btnStop_Clicked(self):
         if(settings[5] == None):
+            self.ui.textEdit.setText("ERROR: Please select an instrument.")
             print("Make sure all the necessary fields are filled")
         else:
             conductor.MQTT_publish("STOP",topic=settings[5])
+            
+            self.ui.textEdit.append("STOPPING {}".format(instruments[settings[5]]))
         pass
     
     
@@ -119,7 +138,7 @@ class Main(QtGui.QDialog):
         pass
     
 
-#all = -1 keyboard:2 stepper:0 tesla:3 xylo:1
+
     def checkAll_Checked(self):
         settings[5] = -1
         pass
@@ -202,8 +221,10 @@ class Main(QtGui.QDialog):
         self.ui.SelectSong.activated.connect(self.SongSelection)
 
 
+
 if __name__ == '__main__':
     pathToMain = os.getcwd()
+    instruments = ["steppers","xylophone","keyboard","tesla","ALL"]
     os.chdir(pathToMain)
     print(pathToMain)
     conductor.MQTT_init()
@@ -211,7 +232,6 @@ if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
     window = Main()
     window.show()
-    
     sys.exit(app.exec_())
 
 ##

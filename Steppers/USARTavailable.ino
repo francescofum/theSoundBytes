@@ -9,7 +9,7 @@ void USARTavailable() {
  
   String MESSAGE;
   toggle_led();
-  delay(5);
+  delay(10);
   Serial.print("Received from ESP: ");
   while (Serial3.available()>0) {
     MESSAGE = MESSAGE + (char) Serial3.read();
