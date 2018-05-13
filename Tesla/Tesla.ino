@@ -34,12 +34,12 @@ volatile int Size = 0;
 //for MQTT
 int ACTION;
 String TRACK;
-uint32_t timerz;
+
 
 //SPECIFICALLY FOR STEPPER INSTRUMENT
 
 //****************************//
-uint64_t _time = 0; //DELETE IN FINAL VERSION
+
 void setup() {
   //****SETUP FOR MQTT*********//
  //pinMode(13,OUTPUT);

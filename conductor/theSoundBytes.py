@@ -82,7 +82,7 @@ class Main(QtGui.QDialog):
             print(settings[2])
             print(settings[3])
             print("Make sure all the necessary fields are filled")
-            self.ui.textEdit_2.setText("ERROR: Make sure all the necessary fields are filled.")
+            self.ui.lineEdit_3.setText("ERROR: Make sure all the necessary fields are filled.")
         else:
             display=('''Saving as: {}
 MIDI track: {}
@@ -107,7 +107,7 @@ Format: {}
         if settings[6]  == None:
             settings[6] = self.ui.SelectSong.currentText()[:8] 
         if settings[5] == None:
-            self.ui.textEdit.append("ERROR: Please select an instrument.")
+            self.ui.lineEdit_3.setText("ERROR: Please select an instrument.")
             print("Select instrument")
         else:
             shelfFile = shelve.open('GUIconfig')  
@@ -117,19 +117,19 @@ Format: {}
             print("Transmitting START signal")
             conductor.MQTT_publish("START",topic=settings[5])
             songName = [k for k,v in __SONGS_temp_.items() if v==settings[6]]         
-            self.ui.textEdit.setText("PLAYING {}  on {}".format(__SONGS_temp_[songName[0]],instruments[settings[5]]))
+            self.ui.lineEdit_3.setText("PLAYING {}  on {}".format(__SONGS_temp_[songName[0]],instruments[settings[5]]))
             
         
    
    
     def btnStop_Clicked(self):
         if(settings[5] == None):
-            self.ui.textEdit.setText("ERROR: Please select an instrument.")
+            self.ui.lineEdit_3.setText("ERROR: Please select an instrument.")
             print("Make sure all the necessary fields are filled")
         else:
             conductor.MQTT_publish("STOP",topic=settings[5])
             
-            self.ui.textEdit.append("STOPPING {}".format(instruments[settings[5]]))
+            self.ui.lineEdit_3.setText("STOPPING {}".format(instruments[settings[5]]))
         pass
     
     
