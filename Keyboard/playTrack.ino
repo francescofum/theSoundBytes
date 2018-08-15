@@ -10,10 +10,15 @@ void playTrack(String track) {
 
     Serial.println("file opened successfully.");
 
-    uint32_t *timeArray = (uint32_t*)malloc(sizeof(uint32_t) * Size);
-    uint32_t *noteArray = (uint32_t*)malloc(sizeof(uint32_t) * Size);
-    uint32_t *statusArray = (uint32_t*)malloc(sizeof(uint32_t) * Size);
+//     uint32_t *timeArray = (uint32_t*)malloc(sizeof(uint32_t) * Size);
+//     uint32_t *noteArray = (uint32_t*)malloc(sizeof(uint32_t) * Size);
+//     uint32_t *statusArray = (uint32_t*)malloc(sizeof(uint32_t) * Size);
 
+    uint32_t *timeArray = malloc(sizeof(uint32_t) * Size);
+    uint32_t *noteArray = malloc(sizeof(uint32_t) * Size);
+    uint32_t *statusArray = malloc(sizeof(uint32_t) * Size);
+    
+    //make global
     ptimeArray = timeArray;
     pnoteArray = noteArray;
     pstatusArray = statusArray;
